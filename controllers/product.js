@@ -229,10 +229,32 @@ exports.listBySearch = (req, res) => {
     });
 };
 
-exports.photo = (req, res,next) => {
+exports.photo = (req, res, next) => {
   if (req.product.photo) {
     res.set("Content-Type", req.product.photo.contentType);
     return res.send(req.product.photo.data);
   }
   next();
+};
+
+exports.searchProducts = (req, res) => {
+  const query = {};
+  if (req.query.search) {
+    query.name = { $regex: req.query.search, $options: "i" };
+
+    if (req.query.category && req.query.category !== "All") {
+      query.category = req.query.category;
+    }
+  }
+
+  Product.find(query)
+    .select("-photo")
+    .exec((err, products) => {
+      if (err || !products) {
+        return res.status(400).json({
+          error: "No search results found",
+        });
+      }
+      res.json(products);
+    });
 };
