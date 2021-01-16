@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const { OrderModel } = require("../models/order");
 
 exports.userById = (req, res, next, id) => {
   User.findById(id, (err, user) => {
@@ -58,11 +59,25 @@ exports.addOrderToUserHistory = (req, res, next) => {
     { new: true },
     (err, result) => {
       if (err) {
-        res.status(400).json({
+        return res.status(400).json({
           error: "Could not update user purchase history",
         });
       }
       next();
     }
   );
+};
+
+exports.purchaseHistory = (req, res) => {
+  OrderModel.find({ user: req.profile._id })
+    .populate("user", "_id name")
+    .sort("-createdAt")
+    .exec((err, orders) => {
+      if (err || !orders) {
+        return res.status(400).json({
+          error: "Orders not found",
+        });
+      }
+      res.json(orders);
+    });
 };
