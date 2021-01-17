@@ -197,9 +197,10 @@ exports.listBySearch = (req, res) => {
 
   //filters = {price:[lowerLimit,HigherLimit],category:"value"}
 
+  console.log(req.body.filters);
   for (let key in req.body.filters) {
     if (req.body.filters[key].length > 0) {
-      if (req.body.filters[key] === "price") {
+      if (key === "price") {
         findArgs[key] = {
           $gte: req.body.filters[key][0],
           $lte: req.body.filters[key][1],
@@ -218,7 +219,7 @@ exports.listBySearch = (req, res) => {
     .skip(skip)
     .exec((err, products) => {
       if (err || !products) {
-        res.status(400).json({
+        return res.status(400).json({
           error: "Products not found",
         });
       }
