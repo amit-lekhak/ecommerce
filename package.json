@@ -7,7 +7,12 @@
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["mongoose","node","express","braintree"],
+  "keywords": [
+    "mongoose",
+    "node",
+    "express",
+    "braintree"
+  ],
   "author": "",
   "license": "ISC",
   "engines": {
