@@ -1,10 +1,20 @@
-# ecommerce
-This is a node.js/express backend api for a ecommerce app with jwt and braintree payment(sandbox).
+# A E-commerce Project
 
-.env contains:
-PORT=8000
-DATABASE=
-JWT_SECRET=any
-BRAINTREE_MERCHANT_ID=
-BRAINTREE_PUBLIC_KEY=
-BRAINTREE_PRIVATE_KEY=
+> Complete E-commerce site built with Node.js, React, Redux, Express, MongoDB
+
+
+### Backend Deployed At
+ > http://developer-bookabook.herokuapp.com/
+
+
+### Env Variables
+
+Create a .env file in the root folder 
+Add your variables in that.
+
+
+### Install Dependencies (Backend)
+
+```
+npm i
+```
